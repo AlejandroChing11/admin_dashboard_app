@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import API from "@/services/API";
 import { useRouter } from "next/navigation";
+import { ImageInput } from "./ImageInput";
 
 export function RegisterForm() {
 
@@ -15,11 +16,18 @@ export function RegisterForm() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<User>();
+    setValue,
+    watch
+  } = useForm<User>({
+    defaultValues: {
+      imagen: null
+    }
+  });
 
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const onSubmit = async (data: User) => {
 
@@ -27,17 +35,36 @@ export function RegisterForm() {
       setIsLoading(true);
       setError(null);
 
-      const response = await API.register(data);
+      if (!data.imagen || (data.imagen instanceof FileList && data.imagen.length === 0)) {
+        setError('La imagen es obligatoria');
+        setIsLoading(false);
+        return;
+      }
 
-      console.log('Usuario registrado', response);
+      const formData = new FormData();
+
+      if (data.imagen instanceof File) {
+        formData.append('imagen', data.imagen);
+      } else if (data.imagen instanceof FileList && data.imagen[0]) {
+        formData.append('imagen', data.imagen[0]);
+      }
+
+      Object.keys(data).forEach(key => {
+        if (key !== 'imagen') {
+          formData.append(key, data[key as keyof User] as string);
+        }
+      });
+
+      await API.register(data);
 
       reset();
       router.push('/login');
+      setImagePreview(null);
 
 
     } catch (error: any) {
       setError(error.message);
-    } finally {
+    } finally { 
       setIsLoading(false);
     }
 
@@ -45,8 +72,8 @@ export function RegisterForm() {
 
 
   return (
-    <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
-      <form className="bg-white p-10" onSubmit={handleSubmit(onSubmit)}>
+    <div className="flex-1 w-full min-h-screen bg-white flex justify-center items-start">
+      <form className="w-full max-w-3xl mx-auto p-8 my-8" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="text-gray-800 font-bold text-2xl mb-1 text-center">Regístrate a WePlot</h1>
         <p className="text-sm font-normal text-gray-600 mb-7 text-center">Diligencia el formulario</p>
 
@@ -152,11 +179,34 @@ export function RegisterForm() {
               name="confirmarContraseña"
               label="Confirmar Contraseña"
               isRequired
-              register={register}
+              register={(fieldName) =>
+                register(fieldName, {
+                  required: "El campo Confirmar Contraseña es obligatorio",
+                  validate: (value) =>
+                    value === watch('password') || "Las contraseñas no coinciden"
+                })
+              }
               error={errors.confirmarContraseña?.message}
               type="password"
             />
           </div>
+
+          {/* Imagen */}
+          <ImageInput
+            register={register}
+            setValue={setValue}
+            error={errors.imagen?.message}
+            setImagePreview={setImagePreview}
+          />
+
+          {/* Preview de la imagen */}
+          {imagePreview && (
+            <img
+              src={imagePreview}
+              alt="Imagen de perfil"
+              className="mt-2 w-24 h-24 object-cover rounded-full mx-auto"
+            />
+          )}
         </div>
 
         <button type="submit" className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Registrarse</button>

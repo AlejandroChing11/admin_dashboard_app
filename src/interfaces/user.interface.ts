@@ -10,4 +10,5 @@ export interface User {
   colorFavorito: string;
   password: string;
   confirmarContraseña: string;
+  imagen: File | FileList | null;
 }
