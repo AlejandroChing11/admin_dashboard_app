@@ -3,8 +3,9 @@ import { User } from ".";
 
 export interface FormInputProps {
   name: keyof User;
-  placeholder: string;
   register: UseFormRegister<User>;
+  label: string;
+  isRequired?: boolean;
   type?: string;
   error?: string;
 }

@@ -3,7 +3,10 @@
 import { User } from "@/interfaces";
 import { useForm } from "react-hook-form";
 import { FormInput } from "./FormInput";
+import { useState } from "react";
 
+import API from "@/services/API";
+import { useRouter } from "next/navigation";
 
 export function RegisterForm() {
 
@@ -14,24 +17,46 @@ export function RegisterForm() {
     reset,
   } = useForm<User>();
 
-  const onSubmit = (data: User) => {
-    console.log(data);
-    reset();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const onSubmit = async (data: User) => {
+
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const response = await API.register(data);
+
+      console.log('Usuario registrado', response);
+
+      reset();
+      router.push('/login');
+
+
+    } catch (error: any) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+
   }
 
 
   return (
     <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
       <form className="bg-white p-10" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="text-gray-800 font-bold text-2xl mb-1">Bienvenido a WePlot</h1>
-        <p className="text-sm font-normal text-gray-600 mb-7">Diligencia el formulario</p>
+        <h1 className="text-gray-800 font-bold text-2xl mb-1 text-center">Regístrate a WePlot</h1>
+        <p className="text-sm font-normal text-gray-600 mb-7 text-center">Diligencia el formulario</p>
 
         <div className="flex flex-wrap -mx-2">
           {/* Nombre y Apellido */}
           <div className="w-1/2 px-2">
             <FormInput
               name="nombre"
-              placeholder="Nombre"
+              isRequired
+              label="Nombre"
               register={register}
               error={errors.nombre?.message}
             />
@@ -39,7 +64,7 @@ export function RegisterForm() {
           <div className="w-1/2 px-2">
             <FormInput
               name="apellido"
-              placeholder="Apellido"
+              label="Apellido"
               register={register}
               error={errors.apellido?.message}
             />
@@ -49,7 +74,8 @@ export function RegisterForm() {
           <div className="w-1/2 px-2">
             <FormInput
               name="email"
-              placeholder="Email"
+              isRequired
+              label="Email"
               register={register}
               error={errors.email?.message}
             />
@@ -57,7 +83,8 @@ export function RegisterForm() {
           <div className="w-1/2 px-2">
             <FormInput
               name="telefono"
-              placeholder="Teléfono"
+              label="Teléfono"
+              isRequired
               register={register}
               error={errors.telefono?.message}
             />
@@ -67,7 +94,7 @@ export function RegisterForm() {
           <div className="w-full px-2">
             <FormInput
               name="pais"
-              placeholder="País"
+              label="País"
               register={register}
               error={errors.pais?.message}
             />
@@ -77,7 +104,7 @@ export function RegisterForm() {
           <div className="w-1/2 px-2">
             <FormInput
               name="comidaFavorita"
-              placeholder="Comida Favorita"
+              label="Comida Favorita"
               register={register}
               error={errors.comidaFavorita?.message}
             />
@@ -85,7 +112,7 @@ export function RegisterForm() {
           <div className="w-1/2 px-2">
             <FormInput
               name="artistaFavorito"
-              placeholder="Artista Favorito"
+              label="Artista Favorito"
               register={register}
               error={errors.artistaFavorito?.message}
             />
@@ -95,7 +122,7 @@ export function RegisterForm() {
           <div className="w-1/2 px-2">
             <FormInput
               name="lugarFavorito"
-              placeholder="Lugar Favorito"
+              label="Lugar Favorito"
               register={register}
               error={errors.lugarFavorito?.message}
             />
@@ -103,7 +130,7 @@ export function RegisterForm() {
           <div className="w-1/2 px-2">
             <FormInput
               name="colorFavorito"
-              placeholder="Color Favorito"
+              label="Color Favorito"
               register={register}
               error={errors.colorFavorito?.message}
             />
@@ -113,7 +140,8 @@ export function RegisterForm() {
           <div className="w-1/2 px-2">
             <FormInput
               name="password"
-              placeholder="Contraseña"
+              label="Contraseña"
+              isRequired
               register={register}
               error={errors.password?.message}
               type="password"
@@ -122,7 +150,8 @@ export function RegisterForm() {
           <div className="w-1/2 px-2">
             <FormInput
               name="confirmarContraseña"
-              placeholder="Confirmar Contraseña"
+              label="Confirmar Contraseña"
+              isRequired
               register={register}
               error={errors.confirmarContraseña?.message}
               type="password"
