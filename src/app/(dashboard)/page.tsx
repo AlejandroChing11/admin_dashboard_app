@@ -1,8 +1,15 @@
+import { Welcome } from "@/components";
 
-export default function DashboardPage() {
+
+export const metadata = {
+  title: '¡Welcome to WePlot!',
+  description: 'Welcome to WePlot, the best place to plot your data!',
+};
+
+export default function HomePage() {
   return (
     <div>
-      <h1>Hello Dashboard Page</h1>
+      <Welcome />
     </div>
   );
 }

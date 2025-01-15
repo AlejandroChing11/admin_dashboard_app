@@ -28,6 +28,7 @@ export function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [adminCode, setAdminCode] = useState<string>('');
 
   const onSubmit = async (data: User) => {
 
@@ -55,7 +56,8 @@ export function RegisterForm() {
         }
       });
 
-      await API.register(data);
+      console.log('adminCode', adminCode);
+      await API.register(data, adminCode);
 
       reset();
       router.push('/login');
@@ -125,6 +127,21 @@ export function RegisterForm() {
               register={register}
               error={errors.pais?.message}
             />
+          </div>
+
+          {/* Admin Code */}
+          <div className="w-full px-2">
+            <label className="block text-slate-500 text-sm font-semibold mb-2">
+              Código de Administrador
+            </label>
+            <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-2">
+              <input
+                value={adminCode || ''}
+                onChange={(e) => setAdminCode(e.target.value)}
+                type={"text"}
+                className="pl-2 outline-none border-none flex-grow text-slate-500"
+              />
+            </div>
           </div>
 
           {/* Comida y Artista Favorito */}
