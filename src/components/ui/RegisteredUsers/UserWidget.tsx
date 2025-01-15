@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Image from "next/image";
 
-import { editData, RegisteredUser } from "@/interfaces";
+import { EditData, RegisteredUser } from "@/interfaces";
 
 import { EditForm, Modal } from "@/components";
 
@@ -17,7 +17,7 @@ export function UserWidget({ isAdmin, ...props }: UserWidgetProps) {
   const [showEditForm, setShowEditForm] = useState(false);
   const [userData, setUserData] = useState(props);
 
-  const handleEdit = (updatedUser: editData) => {
+  const handleEdit = (updatedUser: any) => {
     setUserData(updatedUser);
     setShowEditForm(false);
   };
