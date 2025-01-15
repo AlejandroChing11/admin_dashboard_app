@@ -1,4 +1,4 @@
-# Nombre del Proyecto
+# WE PLOT
 
 WePlot es una aplicación que permite que usuarios registren sus preferencias y a la vez puedan ver su información registrada en un portal personalizado. Tambien cuenta con un rol de administrador por tanto el administrador tiene acceso de todos los usuarios registrados.
 
