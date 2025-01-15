@@ -10,6 +10,7 @@ import API from "@/services/API";
 
 import { FormInput } from "./FormInput";
 import { ImageInput } from "./ImageInput";
+import Link from "next/link";
 
 export function RegisterForm() {
 
@@ -226,7 +227,12 @@ export function RegisterForm() {
         >
           <span className="text-sm text-slate-700">
             ¿Ya tienes cuenta?
-            <span className="text-blue-500 ml-2 cursor-pointer">Inicia sesión</span>
+            <Link
+              className="text-blue-500 ml-2 cursor-pointer"
+              href="/login"
+            >
+              Inicia sesión
+            </Link>
           </span>
         </div>
       </form>
