@@ -27,20 +27,15 @@ export function RegisterForm() {
   });
 
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [adminCode, setAdminCode] = useState<string>('');
 
   const onSubmit = async (data: User) => {
 
     try {
-      setIsLoading(true);
-      setError(null);
 
       if (!data.imagen || (data.imagen instanceof FileList && data.imagen.length === 0)) {
-        setError('La imagen es obligatoria');
-        setIsLoading(false);
+        alert('Debes seleccionar una imagen de perfil');
         return;
       }
 
@@ -58,7 +53,6 @@ export function RegisterForm() {
         }
       });
 
-      console.log('adminCode', adminCode);
       await API.register(data, adminCode);
 
       reset();
@@ -66,11 +60,9 @@ export function RegisterForm() {
       setImagePreview(null);
 
 
-    } catch (error: any) {
-      setError(error.message);
-    } finally { 
-      setIsLoading(false);
-    }
+    } catch (error) {
+      console.log(error)
+    } 
 
   }
 

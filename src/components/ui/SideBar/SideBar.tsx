@@ -10,6 +10,7 @@ import useToken from '@/hooks/useToken';
 import { SideBarMenuItems } from '../SideBarMenuItems';
 import { FaHouseUser, FaSignOutAlt } from 'react-icons/fa';
 import { IoBrowsersOutline, IoLogoReact } from 'react-icons/io5';
+import { User } from '@/interfaces';
 
 const menuItems = [
   {
@@ -37,7 +38,7 @@ const Skeleton = () => (
 
 export function SideBar() {
   const token = useToken();
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<any>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();

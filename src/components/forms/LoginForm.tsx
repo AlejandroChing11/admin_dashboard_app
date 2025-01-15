@@ -34,8 +34,8 @@ export function LoginForm() {
         setAuthError("La contraseña o el email es incorrecto");
       }
 
-    } catch (error: any) {
-      console.error(error.message);
+    } catch (error) {
+      console.error(error);
       setAuthError("La contraseña o el email es incorrecto"); 
     }
   };

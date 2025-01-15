@@ -14,7 +14,7 @@ interface Props {
 }
 
 export function EditForm({ user, onSave }: Props) {
-  const { register, handleSubmit, formState: { errors } } = useForm<EditData>({
+  const { register, handleSubmit } = useForm<EditData>({
     defaultValues: {
       comidaFavorita: user.comidaFavorita,
       artistaFavorito: user.artistaFavorito,
@@ -36,8 +36,9 @@ export function EditForm({ user, onSave }: Props) {
       const updatedUserData = await API.editUserPreferences(user.id, updatedData, token);
       onSave(updatedUserData);
       setMessage('Preferencias actualizadas exitosamente.');
-    } catch (error: any) {
-      setMessage(`Error al actualizar preferencias: ${error.message}`);
+    } catch (error) {
+      setMessage(`Error al actualizar preferencias`);
+      console.log(error);
     }
   };
 

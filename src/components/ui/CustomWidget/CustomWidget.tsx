@@ -6,6 +6,7 @@ import useToken from "@/hooks/useToken";
 import API from "@/services/API";
 
 import { FaMusic, FaPalette, FaUtensils, FaMapMarkerAlt } from "react-icons/fa";
+import { User } from "@/interfaces";
 
 const Skeleton = () => (
   <div className="max-w-2xl mx-auto p-4">
@@ -31,7 +32,7 @@ const Skeleton = () => (
 
 export function CustomWidget() {
   const token = useToken();
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<User>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,6 +44,7 @@ export function CustomWidget() {
         setUserData(data);
       } catch (err) {
         setError("Failed to fetch user data");
+        console.error(err);
       } finally {
         setLoading(false);
       }
