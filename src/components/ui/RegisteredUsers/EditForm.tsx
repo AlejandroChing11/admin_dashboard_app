@@ -1,10 +1,12 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { EditData } from '@/interfaces/editUserData.interface';
-import API from '@/services/API';
 import { useState } from 'react';
-import useToken from '@/hooks/useToken'; // Para obtener el token de autenticación
+
+import { useForm } from 'react-hook-form';
+
+import API from '@/services/API';
+import useToken from '@/hooks/useToken';
+import { EditData } from '@/interfaces/editUserData.interface';
 
 interface Props {
   user: EditData;

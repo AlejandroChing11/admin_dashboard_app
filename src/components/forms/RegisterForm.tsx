@@ -1,12 +1,14 @@
 'use client';
 
-import { User } from "@/interfaces";
-import { useForm } from "react-hook-form";
-import { FormInput } from "./FormInput";
 import { useState } from "react";
 
-import API from "@/services/API";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+
+import { User } from "@/interfaces";
+import API from "@/services/API";
+
+import { FormInput } from "./FormInput";
 import { ImageInput } from "./ImageInput";
 
 export function RegisterForm() {

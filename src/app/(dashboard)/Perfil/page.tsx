@@ -1,6 +1,5 @@
 import { CustomWidget } from "@/components";
 
-
 export const metadata = {
   title: 'We Plot | Perfil',
   description: 'Informacion de tu perfil!',

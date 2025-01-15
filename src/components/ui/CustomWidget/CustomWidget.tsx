@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { FaMusic, FaPalette, FaUtensils, FaMapMarkerAlt } from "react-icons/fa";
+
 import useToken from "@/hooks/useToken";
 import API from "@/services/API";
+
+import { FaMusic, FaPalette, FaUtensils, FaMapMarkerAlt } from "react-icons/fa";
 
 const Skeleton = () => (
   <div className="max-w-2xl mx-auto p-4">

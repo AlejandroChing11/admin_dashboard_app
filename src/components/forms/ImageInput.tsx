@@ -1,4 +1,6 @@
+
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
+
 import { User } from '@/interfaces';
 
 interface ImageInputProps {

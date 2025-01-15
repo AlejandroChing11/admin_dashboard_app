@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+
 import Image from "next/image";
-import { EditForm, Modal } from "@/components";
+
 import { editData, RegisteredUser } from "@/interfaces";
+
+import { EditForm, Modal } from "@/components";
 
 interface UserWidgetProps extends RegisteredUser {
   isAdmin: boolean;

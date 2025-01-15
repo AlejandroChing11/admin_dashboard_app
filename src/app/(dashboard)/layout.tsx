@@ -1,8 +1,10 @@
 'use client';
 
-import { SideBar } from "@/components";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+
+import { useRouter } from "next/navigation";
+
+import { SideBar } from "@/components";
 
 export default function DashboardLayout({
   children

@@ -1,6 +1,5 @@
 import { RegisterForm } from "@/components/forms/RegisterForm";
 
-
 export const metadata = {
   title: 'Registrate en WePlot!',
   description: 'Registrate en WePlot!',

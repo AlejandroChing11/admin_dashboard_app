@@ -1,6 +1,5 @@
 import { LoginForm } from "@/components/forms/LoginForm";
 
-
 export const metadata = {
   title: 'Ingresa a WePlot!',
   description: 'Ingresa a WePlot!',

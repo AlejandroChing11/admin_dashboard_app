@@ -1,9 +1,11 @@
 'use client';
 
-import { UserWidget } from "@/components";
-import useToken from "@/hooks/useToken";
-import API from "@/services/API";
 import { useEffect, useState } from "react";
+
+import API from "@/services/API";
+import useToken from "@/hooks/useToken";
+
+import { UserWidget } from "@/components";
 
 export function UserGrid() {
   const token = useToken();
